@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>POST без Django Forms</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+        .card { max-width: 450px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
+        .error { color: red; font-weight: bold; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input[type="text"], input[type="email"], textarea { width: 100%; padding: 8px; box-sizing: border-box; }
+        button { background-color: #007bff; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 4px; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Форма с ручной обработкой POST</h2>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="username">Имя *:</label>
+                <input type="text" id="username" name="username" value="{{ username|default:'' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email *:</label>
+                <input type="email" id="email" name="email" value="{{ email|default:'' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="message">Сообщение:</label>
+                <textarea id="message" name="message" rows="4">{{ message|default:'' }}</textarea>
+            </div>
+
+            <button type="submit">Отправить (POST)</button>
+        </form>
+    </div>
+</body>
+</html>
